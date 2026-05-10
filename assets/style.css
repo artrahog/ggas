@@ -1,0 +1,68 @@
+:root {
+    --cg-primary: #0f172a;
+    --cg-secondary: #1e293b;
+    --cg-accent: #f59e0b;
+    --cg-soft: #f8fafc;
+}
+
+body {
+    background:
+        radial-gradient(circle at top right, rgba(245, 158, 11, 0.18), transparent 25%),
+        linear-gradient(180deg, #eef2ff 0%, #f8fafc 40%, #eef2f7 100%);
+    min-height: 100vh;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.glass-card,
+.card {
+    border-radius: 1.25rem;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--cg-primary), var(--cg-secondary));
+}
+
+.points-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.overview-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 1rem;
+    height: 100%;
+}
+
+.overview-item .label {
+    display: block;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 0.35rem;
+}
+
+.navbar-brand {
+    letter-spacing: 0.4px;
+}
+
+.btn-dark {
+    background-color: var(--cg-primary);
+    border-color: var(--cg-primary);
+}
+
+.btn-dark:hover {
+    background-color: #020617;
+    border-color: #020617;
+}
+
+.form-control,
+.btn,
+.alert,
+.badge {
+    border-radius: 0.9rem;
+}

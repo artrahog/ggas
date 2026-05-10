@@ -1,0 +1,10 @@
+db.php
+used_qr_codes.json
+used_vouchers.json
+vouchers.json
+oauth/config.php
+vendor/
+oauth/node_modules/
+
+*.save
+*.save.*
