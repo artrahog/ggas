@@ -62,4 +62,35 @@ function passwordRequirementsText()
 {
     return "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.";
 }
-?>
+
+function logAudit(
+    $conn,
+    $userId,
+    $actionType,
+    $description
+) {
+
+    $sql =
+    "INSERT INTO
+    dbo.audit_logs
+    (
+        user_id,
+        action_type,
+        description
+    )
+    VALUES
+    (?, ?, ?)";
+
+    $params =
+    array(
+        $userId,
+        $actionType,
+        $description
+    );
+
+    sqlsrv_query(
+        $conn,
+        $sql,
+        $params
+    );
+}

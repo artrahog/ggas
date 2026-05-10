@@ -13,6 +13,153 @@ if (
 
 $conn = getDbConnection();
 
+$totalUsers =
+0;
+
+$totalPoints =
+0;
+
+$totalRedeems =
+0;
+
+$userQuery =
+sqlsrv_query(
+    $conn,
+    "SELECT COUNT(*) AS total
+    FROM dbo.users"
+);
+
+if ($userQuery) {
+
+    $row =
+    sqlsrv_fetch_array(
+        $userQuery,
+        SQLSRV_FETCH_ASSOC
+    );
+
+    $totalUsers =
+    $row["total"];
+}
+
+$pointsQuery =
+sqlsrv_query(
+    $conn,
+    "SELECT
+    ISNULL(
+        SUM(reward_points),
+        0
+    ) AS total
+    FROM dbo.users"
+);
+
+if ($pointsQuery) {
+
+    $row =
+    sqlsrv_fetch_array(
+        $pointsQuery,
+        SQLSRV_FETCH_ASSOC
+    );
+
+    $totalPoints =
+    $row["total"];
+}
+
+$redeemQuery =
+sqlsrv_query(
+    $conn,
+    "SELECT COUNT(*) AS total
+    FROM dbo.audit_logs
+    WHERE action_type =
+    'REDEEM_VOUCHER'"
+);
+
+if ($redeemQuery) {
+
+    $row =
+    sqlsrv_fetch_array(
+        $redeemQuery,
+        SQLSRV_FETCH_ASSOC
+    );
+
+    $totalRedeems =
+    $row["total"];
+}
+
+$totalUsers =
+0;
+
+$totalPoints =
+0;
+
+$totalRedeems =
+0;
+
+$totalLogs =
+0;
+
+$userQuery =
+sqlsrv_query(
+    $conn,
+    "SELECT COUNT(*) AS total
+    FROM dbo.users"
+);
+
+if ($userQuery) {
+    $row =
+    sqlsrv_fetch_array(
+        $userQuery,
+        SQLSRV_FETCH_ASSOC
+    );
+
+    $totalUsers =
+    $row["total"];
+}
+
+$pointsQuery =
+sqlsrv_query(
+    $conn,
+    "SELECT
+    ISNULL(
+        SUM(
+            reward_points
+        ),
+        0
+    ) AS total
+    FROM dbo.users"
+);
+
+if ($pointsQuery) {
+    $row =
+    sqlsrv_fetch_array(
+        $pointsQuery,
+        SQLSRV_FETCH_ASSOC
+    );
+
+    $totalPoints =
+    $row["total"];
+}
+
+$redeemQuery =
+sqlsrv_query(
+    $conn,
+    "SELECT COUNT(*) AS total
+    FROM dbo.audit_logs
+    WHERE
+    action_type =
+    'REDEEM_VOUCHER'"
+);
+
+if ($redeemQuery) {
+    $row =
+    sqlsrv_fetch_array(
+        $redeemQuery,
+        SQLSRV_FETCH_ASSOC
+    );
+
+    $totalRedeems =
+    $row["total"];
+}
+
 $sql = "
 SELECT
     user_id,
@@ -229,21 +376,151 @@ if ($user["created_at"] instanceof DateTime) {
                     </div>
                 </div>
                 <div class="col-md-4 text-md-end mt-3 mt-md-0">
+
 <?php if (isset($_SESSION["is_admin"]) && $_SESSION["is_admin"] === true) { ?>
 
-    <a href="manage_accounts.php" class="btn btn-primary btn-main">
+    <a
+    href="manage_accounts.php"
+    class="btn btn-primary btn-main">
+
         Manage Accounts
+
+    </a>
+
+    <a
+    href="audit_log.php"
+    class="btn btn-dark btn-main">
+
+        Audit Log
+
+    </a>
+
+    <a
+    href="reports.php"
+    class="btn btn-success btn-main">
+
+        Reports
+
     </a>
 
 <?php } else { ?>
 
-    <a href="edit_account.php" class="btn btn-primary btn-main">
-        Manage Profile
-    </a>
+<a
+href="edit_account.php?id=<?php echo $_SESSION['user_id']; ?>"
+class="btn btn-primary btn-main">
 
-<?php } ?>                </div>
+Manage Profile
+
+</a>
+
+<?php } ?>
+
+
+               </div>
             </div>
         </div>
+
+<?php
+if (
+isset(
+$_SESSION["is_admin"]
+)
+&&
+$_SESSION["is_admin"]
+===
+true
+) {
+?>
+
+<div
+class="row g-4 mb-4">
+
+<div
+class="col-md-4">
+
+<div
+class="stat-card stat-blue">
+
+<div
+class="stat-label">
+
+Total Users
+
+</div>
+
+<div
+class="stat-value">
+
+<?php
+echo
+$totalUsers;
+?>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+class="col-md-4">
+
+<div
+class="stat-card stat-green">
+
+<div
+class="stat-label">
+
+Reward Points
+
+</div>
+
+<div
+class="stat-value">
+
+<?php
+echo
+$totalPoints;
+?>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+class="col-md-4">
+
+<div
+class="stat-card stat-dark">
+
+<div
+class="stat-label">
+
+Voucher Redeems
+
+</div>
+
+<div
+class="stat-value">
+
+<?php
+echo
+$totalRedeems;
+?>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<?php
+}
+?>
 
 <div class="row g-4 mb-4">
 

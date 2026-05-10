@@ -112,6 +112,13 @@ file_put_contents(
     )
 );
 
+logAudit(
+    $conn,
+    $_SESSION["user_id"],
+    "REDEEM_VOUCHER",
+    "Redeemed ₱100 gas voucher"
+);
+
 echo "
 <h2>
 Voucher Accepted

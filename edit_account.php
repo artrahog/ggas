@@ -10,6 +10,13 @@ $error = "";
 $success = "";
 $csrfToken = generateCsrfToken();
 
+logAudit(
+    $conn,
+    $_SESSION["user_id"],
+    "EDIT_ACCOUNT",
+    "Edited account ID: " .
+    $user_id
+);
 
 $user_id =
 intval(

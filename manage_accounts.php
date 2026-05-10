@@ -29,6 +29,13 @@ if (isset($_GET["delete"])) {
 
         if ($deleteStmt) {
             $success = "Account deleted successfully.";
+logAudit(
+    $conn,
+    $_SESSION["user_id"],
+    "DELETE_ACCOUNT",
+    "Deleted user ID: " .
+    $deleteId
+);
         } else {
             $error = "Failed to delete account.";
         }

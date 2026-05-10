@@ -209,6 +209,13 @@ if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
+logAudit(
+    $conn,
+    $_SESSION["user_id"],
+    "CLAIM_POINTS",
+    "Claimed {$pointsEarned} reward points from ₱{$amountPaid} fuel purchase"
+);
+
 echo "
 <h4>Success!</h4>
 <p>Fuel: {$liters} L</p>
